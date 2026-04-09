@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Ajout / Modification Voiture</title>
+
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+	<div th:replace="template"></div>
+	<div class="container mt-5">
+
+		<div class="card">
+
+			<div class="card-header" th:if="${mode=='new'}">
+				Ajout des Voitures
+			</div>
+
+			<div class="card-header" th:if="${mode=='edit'}">
+				Modification des Voitures
+			</div>
+
+			<div class="card-body">
+
+				<form th:action="@{saveVoiture}" th:object="${voiture}" method="post">
+					<input hidden name="page" class="form-control" th:value="${page}" />
+					<input hidden name="size" class="form-control" th:value="${size}" />
+
+					<!-- ID caché pour modification -->
+					<input type="hidden" th:field="*{idVoiture}" />
+
+					<div class="form-group">
+						<label>Boite Vitesse :</label>
+						<input type="text" th:field="*{boiteVitesse}" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label>Modele voiture :</label>
+						<input type="text" th:field="*{modele}" class="form-control" />
+						<span th:errors="*{modele}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label>Couleur :</label>
+						<input type="text" th:field="*{couleur}" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label>Type Carburant :</label>
+						<input type="text" th:field="*{typeCarburant}" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<label>Prix voiture :</label>
+						<input type="text" th:field="*{prixVoiture}" class="form-control" />
+						<span th:errors="*{prixVoiture}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label>Date Fabrication :</label>
+						<input type="date" th:field="*{dateFabrication}" class="form-control" />
+						<span th:errors="*{dateFabrication}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+
+						<label>Marque :</label>
+
+						<select th:field="*{marque}" class="form-control">
+
+							<option th:each="c : ${marques}" th:value="${c.idMar}" th:text="${c.nomMar}">
+							</option>
+
+						</select>
+
+					</div>
+
+					<button type="submit" class="btn btn-primary">
+						Valider
+					</button>
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
+</html>
